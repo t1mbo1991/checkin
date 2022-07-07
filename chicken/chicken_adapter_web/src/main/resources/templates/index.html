@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <link crossorigin="anonymous"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+          rel="stylesheet">
+    <link href="../static/icons/favicon-256x256.png" rel="icon" th:href="@{/icons/favicon-256x256.png}"
+          type="image/png">
+    <title>Chicken</title>
+</head>
+<body>
+
+<div class="container p-5">
+    <header>
+        <h1 class="mb-3">Dashboard: Exemption times</h1>
+    </header>
+
+    <nav class="navbar navbar-expand navbar-dark rounded bg-primary mb-5">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a aria-current="page" class="nav-link text-white" href="#holidays">Holiday list</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#exams">Exam list</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" th:href="@{/student/bookholiday}">Book new
+                            holiday</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" th:href="@{/student/bookexam}">Book new exam</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" th:href="@{/student/addexam}">Register new
+                            exam</a>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="mailto:propra@cs.hhu.de" id="" aria-expanded="false" aria-label="mail to propra@cs.hhu.de"> Help </a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section class="mb-5">
+            <h2 id="holidays">Holidays</h2>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Start</th>
+                    <th>End</th>
+                    <th aria-label="Time in minutes">Time (in min.)</th>
+                    <th aria-label="Cancel buttons"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="holiday : ${holidays}">
+                    <td th:text="${holiday.getDate()}">2022-03-22</td>
+                    <td th:text="${holiday.getStart()}">09:30</td>
+                    <td th:text="${holiday.getEnd()}">11:00</td>
+                    <td th:text="${holiday.getTimespan().getDuration()}">90</td>
+                    <td>
+                        <form th:action="@{/student/cancelholiday}" th:method="POST">
+                            <input name="holidayId" th:value="${holiday.getId()}" type="hidden">
+                            <button aria-label="Cancel holiday" class="btn btn-danger"
+                                    type="submit">Cancel holiday
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th>Sum</th>
+                    <td></td>
+                    <td></td>
+                    <td th:text="${holidaySum}">90</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>Remaining holiday</th>
+                    <td></td>
+                    <td></td>
+                    <td th:text="${remainingHoliday}">150</td>
+                    <td></td>
+                </tr>
+                </tfoot>
+            </table>
+            <div class="alert-danger p-2 rounded mb-3" th:if="${holidayError}">
+                <span aria-label="Error message for canceling holiday" th:text="${holidayError}">Error</span>
+            </div>
+            <a class="btn btn-primary" th:href="@{/student/bookholiday}">Book new holiday</a>
+        </section>
+        <section class="mb-5">
+            <h2 id="exams">Exams</h2>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Event name</th>
+                    <th>Event ID</th>
+                    <th>Event time</th>
+                    <th>Exemption time</th>
+                    <th aria-label="Cancel buttons"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="exam : ${exams}">
+                    <td th:text="${exam.getName()}">Propra</td>
+                    <td th:text="${exam.getEventId()}">123</td>
+                    <td th:text="${exam.getTimespan().toString()}">2022-03-23, 09:30 - 11:00</td>
+                    <td th:text="${exam.getExemptionTime().toString()}">2022-03-23, 09:30 - 11:00
+                    </td>
+                    <td>
+                        <form th:action="@{/student/cancelexam}" th:method="POST">
+                            <input name="examId" th:value="${exam.getId()}" type="hidden">
+                            <button aria-label="Cancel exam" class="btn btn-danger" type="submit">
+                                Cancel exam
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="alert-danger p-2 rounded mb-3" th:if="${examError}">
+                <span aria-label="Error message for canceling exam"
+                      th:text="${examError}">Error</span>
+            </div>
+            <a class="btn btn-primary" th:href="@{/student/bookexam}">Book new exam</a>
+        </section>
+    </main>
+</div>
+</body>
+</html>

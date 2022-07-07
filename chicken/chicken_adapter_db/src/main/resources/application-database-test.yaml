@@ -1,0 +1,9 @@
+spring:
+    flyway:
+        schemas: chicken_test
+        create-schemas: true
+        url: jdbc:h2:mem:chicken_test
+
+    datasource:
+        url: jdbc:h2:mem:chicken_test;DB_CLOSE_DELAY=-1
+        driverClassName: org.h2.Driver

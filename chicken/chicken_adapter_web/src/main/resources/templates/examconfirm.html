@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link crossorigin="anonymous"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+          rel="stylesheet">
+    <link href="../static/icons/favicon-256x256.png" rel="icon" th:href="@{/icons/favicon-256x256.png}"
+          type="image/png">
+    <title>Booking exam confirmation</title>
+</head>
+<body>
+<div class="container p-5">
+    <header>
+        <h1 class="mb-3">Book exam</h1>
+    </header>
+
+    <nav class="navbar navbar-expand navbar-dark bg-primary rounded mb-3">
+        <div class="container-fluid">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a aria-current="page" class="nav-link text-white" th:href="@{/}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" th:href="@{/student/addexam}">Register new
+                        exam</a>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="mailto:propra@cs.hhu.de" id="" aria-expanded="false" aria-label="mail to propra@cs.hhu.de"> Help </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+
+    <main>
+        <section class="mb-3">
+            <p>Would you like to book <strong th:text="${exam.toString()}">Propra</strong> directly?
+            </p>
+            <form th:action="@{/student/bookexam}" th:method="POST">
+                <input name="examId" th:value="${exam.getId()}" type="hidden">
+                <button class="btn btn-primary" type="submit">Book exam</button>
+            </form>
+        </section>
+    </main>
+</div>
+</body>
+</html>

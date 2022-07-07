@@ -1,0 +1,16 @@
+config:
+  maxHolidays:  240
+  startDate:    "2022-03-07"
+  endDate:      "2022-04-08"
+  startTime:    "09:30"
+  endTime:      "13:30"
+
+  roles:
+    admins: tiemotm
+    leaders:
+
+spring:
+  profiles:
+    include:
+      - 'database'
+      - 'web'

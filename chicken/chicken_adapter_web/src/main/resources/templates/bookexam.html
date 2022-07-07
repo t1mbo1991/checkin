@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link crossorigin="anonymous"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+          rel="stylesheet">
+    <link href="../static/icons/favicon-256x256.png" rel="icon" th:href="@{/icons/favicon-256x256.png}"
+          type="image/png">
+    <title>Book exam</title>
+</head>
+<body>
+
+<div class="container p-5">
+    <header>
+        <h1 class="mb-3">Book Exam</h1>
+    </header>
+
+    <nav class="navbar navbar-expand navbar-dark rounded bg-primary mb-5">
+        <div class="container-fluid">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link text-white" th:href="@{/student}" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" th:href="@{/student/bookholiday}">Book new
+                        holiday</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-grey disabled" aria-disabled="true"  th:href="@{/student/bookexam}">Book new exam</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" th:href="@{/student/addexam}">Register new
+                        exam</a>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="mailto:propra@cs.hhu.de" id="" aria-expanded="false" aria-label="mail to propra@cs.hhu.de"> Help </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+
+    <main>
+        <section>
+
+            <form action="#" th:action="@{/student/bookexam}" th:method="POST">
+                <p>
+                    <strong>If your Exam does not exist yet, you can create it on <a href="#"
+                                                                                     th:href="@{/student/addexam}">add
+                        exam</a></strong>
+                </p>
+
+                <div class="form-floating">
+                    <select aria-label="Select an exam to book" class="form-select mb-2"
+                            id="exam" name="examId">
+                        <option th:each="exam : ${exams}" th:text="${exam.toString()}"
+                                th:value="${exam.getId()}">Propra
+                        </option>
+                        <option disabled hidden selected value="">Please choose an Exam</option>
+                    </select>
+                    <label for="exam">Exam</label>
+                </div>
+
+                <div class="alert-danger rounded p-2 mb-3" th:if="${examError}">
+                    <span aria-label="Error message for exam selection"
+                          th:text="${examError}">Error</span>
+                </div>
+
+                <p>
+                    <strong>You hereby confirm that you are registered for the selected exam
+                        above.</strong>
+                    <br>
+                    Until the day before the exam, you can cancel your participation by yourself.
+                    Should you decide on the exam day not to participate in the exam, you have to
+                    contact a tutor and write a mail to
+                    <a href="mailto:propra@cs.hhu.de">propra@cs.hhu.de</a>.
+                    <br>
+                    <strong>Of course you have to participate in the internship then.</strong>
+                    We may control the participation in the exam by checking the corresponding
+                    participants list.
+                </p>
+                <button class="btn btn-primary">Book Exam</button>
+            </form>
+        </section>
+    </main>
+</div>
+
+
+</body>
+</html>

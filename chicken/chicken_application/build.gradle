@@ -1,0 +1,33 @@
+plugins {
+    id 'org.springframework.boot' version '2.6.4' apply false
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+    id 'checkstyle'
+}
+
+dependencyManagement {
+    imports {
+        mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
+    }
+}
+
+checkstyle {
+    ignoreFailures = true
+    maxWarnings = 0
+}
+
+jar {
+    enabled = true
+}
+
+dependencies {
+    implementation project(':chicken_domain')
+
+    implementation 'org.springframework.boot:spring-boot-starter'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.mockito:mockito-core:4.0.0'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

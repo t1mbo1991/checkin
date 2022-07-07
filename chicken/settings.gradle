@@ -1,0 +1,5 @@
+include 'chicken_domain',
+        'chicken_application',
+        'chicken_adapter_db',
+        'chicken_adapter_web',
+        'chicken_spring'

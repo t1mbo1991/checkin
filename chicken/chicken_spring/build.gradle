@@ -1,0 +1,33 @@
+plugins {
+    id 'org.springframework.boot' version '2.6.4'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+    id 'checkstyle'
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+checkstyle {
+    ignoreFailures = true
+    maxWarnings = 0
+}
+
+dependencies {
+    implementation project(':chicken_adapter_web')
+    implementation project(':chicken_adapter_db')
+    implementation project(':chicken_application')
+    implementation project(':chicken_domain')
+
+    implementation 'org.springframework.boot:spring-boot-starter'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'com.tngtech.archunit:archunit-junit5-engine:0.22.0'
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

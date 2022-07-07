@@ -1,0 +1,36 @@
+plugins {
+    id 'org.springframework.boot' version '2.6.4' apply false
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+    id 'checkstyle'
+}
+
+dependencyManagement {
+    imports {
+        mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
+    }
+}
+
+checkstyle {
+    ignoreFailures = true
+    maxWarnings = 0
+}
+
+jar {
+    enabled = true
+}
+
+dependencies {
+    implementation project(':chicken_domain')
+    implementation project(':chicken_application')
+
+    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.flywaydb:flyway-core'
+    runtimeOnly 'com.h2database:h2'
+    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
