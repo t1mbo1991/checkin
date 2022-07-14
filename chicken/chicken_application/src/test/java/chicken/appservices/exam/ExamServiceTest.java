@@ -29,14 +29,12 @@ public class ExamServiceTest {
 
     private ExamRepository examRepository;
     private ExamService examService;
-    private InternshipConfig internshipConfig;
-    private ClockConfig clockConfig;
 
     @BeforeEach
     void setup() {
         examRepository = mock(ExamRepository.class);
-        internshipConfig = mock(InternshipConfig.class);
-        clockConfig = mock(ClockConfig.class);
+        InternshipConfig internshipConfig = mock(InternshipConfig.class);
+        ClockConfig clockConfig = mock(ClockConfig.class);
         examService = new ExamService(examRepository, internshipConfig, clockConfig);
 
         when(clockConfig.getSystemDefaultClock()).thenReturn(
@@ -115,8 +113,8 @@ public class ExamServiceTest {
         )));
 
         examService.createExam(true,
-            "222806",
-            "Bürgerliches Recht",
+            "224041",
+            "Hardwarenahe Programmierung",
             LocalDate.of(2022, 3, 17),
             LocalTime.of(9, 30),
             LocalTime.of(10, 30));
@@ -124,6 +122,6 @@ public class ExamServiceTest {
         //Assert
         ArgumentCaptor<Exam> captor = ArgumentCaptor.forClass(Exam.class);
         verify(examRepository).save(captor.capture());
-        assertThat(captor.getValue().getEventId()).isEqualTo("222806");
+        assertThat(captor.getValue().getEventId()).isEqualTo("224041");
     }
 }

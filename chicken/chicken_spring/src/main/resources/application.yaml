@@ -1,7 +1,7 @@
 config:
   maxHolidays:  240
-  startDate:    "2022-03-07"
-  endDate:      "2022-04-08"
+  startDate:    "2022-07-11"
+  endDate:      "2022-07-30"
   startTime:    "09:30"
   endTime:      "13:30"
 
