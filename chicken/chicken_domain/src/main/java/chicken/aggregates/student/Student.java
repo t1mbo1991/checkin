@@ -171,11 +171,11 @@ public class Student {
     }
 
     public Set<Holiday> getHolidays() {
-        return holidays;
+        return new HashSet<>(holidays);
     }
 
     public Set<ExamReference> getExams() {
-        return exams;
+        return new HashSet<>(exams);
     }
 
     @Override
